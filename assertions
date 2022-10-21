@@ -1,0 +1,43 @@
+import unittest
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service
+
+
+class GoogleTest(unittest.TestCase):
+
+    # assertEqual & assertNotEqual
+    def test_title(self):
+        service = Service(executable_path=ChromeDriverManager().install())
+        self.driver = webdriver.Chrome(service=service)
+        self.driver.get("https://www.google.com/")
+        pagetitle = self.driver.title
+        # self.assertEqual("Google", pagetitle, "page is not equal to GitHub")
+        self.assertNotEqual("Google123", pagetitle, "page title is matched")
+
+    # assertTrue & assertFalse
+    def test_title1(self):
+        service = Service(executable_path=ChromeDriverManager().install())
+        self.driver = webdriver.Chrome(service=service)
+        self.driver.get("https://www.youtube.com/")
+        pagetitle1 = self.driver.title
+        # self.assertTrue(pagetitle1 == "YouTube", "title is not matching")
+        self.assertFalse(pagetitle1 == "YouTube1", "title is matching")
+
+    # assertIsNone & assertIsNotNone
+    def test_driver(self):
+        service = Service(executable_path=ChromeDriverManager().install())
+        self.driver = webdriver.Chrome(service=service)
+        self.assertIsNotNone(self.driver)                             # IsNotNone will verify driver has value are not
+
+    # assertIn & assertNotIn
+    def test_list(self):
+        service = Service(executable_path=ChromeDriverManager().install())
+        self.driver = webdriver.Chrome(service=service)
+        list1 = {"python", "java", "ruby"}
+        self.assertIn("python", list1)
+        self.assertNotIn("c", list1)         # test pass bcz "c" is not in list1
+
+
+if __name__ == "__main__":
+    unittest.main()
