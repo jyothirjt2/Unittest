@@ -1,0 +1,24 @@
+import unittest
+
+
+class AppTesting(unittest.TestCase):
+
+    @unittest.SkipTest                                     # skip method, not shown in the console
+    def test_search(self):
+        print("search testcase")
+
+    @unittest.skip("this module is not implemented yet")
+    def test_globalsearch(self):                            # skip method, and shown the reason in the console
+        print("globalsearch testcase")
+
+    # skip method on condition and shown the error msg in the console
+    @unittest.skipIf(1 == 1, "Both num are not equal")
+    def test_prepaidrecharge(self):
+        print("this is a prepaid recharge")
+
+    def test_postpaidrecharge(self):
+        print("this is a postpaid recharge")
+
+
+if __name__ == "__main__":
+    unittest.main()
