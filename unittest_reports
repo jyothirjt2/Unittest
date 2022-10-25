@@ -1,0 +1,41 @@
+import unittest
+import HtmlTestRunner
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+
+
+class SafewayTest(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        service = Service(executable_path=ChromeDriverManager().install())
+        opt = webdriver.ChromeOptions()
+        cls.driver = webdriver.Chrome(service=service, options=opt)
+        cls.driver.maximize_window()
+
+    def test_title(self):
+        self.driver.get("http://49.50.106.137/effitpa/")
+        self.assertEqual("Login Form", self.driver.title, "page title is not matched")
+        print(self.driver.title)
+
+    def test_login(self):
+        self.driver.get("http://49.50.106.137/effitpa/")
+        self.driver.find_element(By.XPATH, '//*[@id="txtUserID"]').send_keys("jyothi")
+        self.driver.find_element(By.XPATH, '//*[@id="TxtPwd"]').send_keys("Ggg@123")
+        self.driver.find_element(By.XPATH, '//*[@id="btnlogin"]').click()
+        self.assertEqual("CRMScreen", self.driver.title, "page title is not macthing")
+        print(self.driver.title)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.driver.close()
+        print("test is completed..........")
+
+
+if __name__ == "__main__":
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output= 'C:\\Users\DELL\\PycharmProjects'
+                                                                   '\\seleniumunittest\\reports1'))
+
+
+# through terminal python C:\Users\DELL\PycharmProjects\seleniumunittest\test_unittest_reports.py  
